@@ -45,13 +45,12 @@ async def execute_cosmos_query(query_request: SQLQueryRequest):
         
         
 
-# New route that performs both operations
 @router.post("/api/get_data_from_query_string")
 async def get_data_from_query_string(query_request: QueryRequest_ai):
     query_string = query_request.query
     try:
-        # Convert query string to SQL
-        sql_query = get_sql(query_string)
+        # Convert query string to SQL (synchronous call, no await needed)
+        sql_query = get_sql(query_string)  # No await here
         
         # Execute the SQL query and fetch results from Cosmos DB
         items = list(container.query_items(
